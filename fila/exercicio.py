@@ -1,6 +1,6 @@
 class Exercicio:
     def __init__(self, id, nome, aluno, aparelho, tempo_execucao, status):
-        self.id = id
+        self.id = str(id)
         self.nome = nome
         self.aluno = aluno
         self.aparelho = aparelho

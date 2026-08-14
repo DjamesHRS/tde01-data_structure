@@ -1,12 +1,11 @@
-import exercicio
-
+from .exercicio import Exercicio
 class Fila:
     def __init__(self):
         self.elementos = []
         
     def adicionar(self, elemento):
         self.elementos.append(elemento)
-    
+        
     def remover(self):
         if not self.elementos:
             raise Exception("A fila está vazia.")
@@ -17,9 +16,24 @@ class Fila:
             raise Exception("A fila está vazia.")
         return self.elementos[0]
     
+    def iniciar(self):
+        elemento = self.proximo()
+        if elemento.status == "Em execução":
+            raise Exception(f"O exercício {elemento.nome} já está em execução.")
+        elemento.iniciar()
+        return elemento
+
+    def concluir(self):
+        elemento = self.proximo()
+        if elemento.status != "Em execução":
+            raise Exception("Nenhum exercício em execução no início da fila.")
+        elemento.concluir()
+        return self.remover()
+
     def consultar(self, id):
+        id_str = str(id)
         for elemento in self.elementos:
-            if elemento.id == id:
+            if str(elemento.id) == id_str:
                 return elemento
         raise Exception(f"Elemento com ID {id} não encontrado na fila.")
     
